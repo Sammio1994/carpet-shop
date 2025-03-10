@@ -7,12 +7,13 @@ import CartPage from './components/CartPage';
 import CheckOut from './components/CheckOut';
 import HomePage from './components/HomePage';
 import Contact from './components/Contact';
+import { CartContext } from "./CartContext";
 
-const App = () => {
+function App() {
   const [cart, setCart] = useState([]);
 
   const addToCart = (product) => {
-    setCart([...cart, product]);
+    setCart((prevCart) => [...prevCart, product]);
   };
 
   const removeFromCart = (product) => {
@@ -27,18 +28,30 @@ const App = () => {
   ];
 
   return (
-    <Router>
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<ProductPage products={products} addToCart={addToCart} />} />
-        <Route path="/products/:id" element={<ProductDetails products={products} />} />
-        <Route path="/cart" element={<CartPage cart={cart} removeFromCart={removeFromCart} />} />
-        <Route path="/checkout" element={<CheckOut cart={cart} />} />
-        <Route path="/products/:id" element={<ProductDetails products={products} addToCart={addToCart} />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/homepage" element={<HomePage />} />
-      </Routes>
-    </Router>
+    <CartContext.Provider value={{ cart, addToCart }}>
+<Router>
+  <Navbar />
+  <Routes>
+    {/* Homepage */}
+    <Route path="/" element={<HomePage />} />
+
+    {/* Product Listing Page */}
+    <Route path="/products" element={<ProductPage products={products} addToCart={addToCart} />} />
+
+    {/* Product Details Page */}
+    <Route path="/products/:id" element={<ProductDetails products={products} addToCart={addToCart} />} />
+
+    {/* Cart Page */}
+    <Route path="/cart" element={<CartPage cart={cart} removeFromCart={removeFromCart} />} />
+
+    {/* Checkout Page */}
+    <Route path="/checkout" element={<CheckOut cart={cart} />} />
+
+    {/* Contact Page */}
+    <Route path="/contact" element={<Contact />} />
+  </Routes>
+</Router>
+</CartContext.Provider>
   );
 };
 

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './CheckOut.css';
 
+
 const CheckOut = ({ cart }) => {
   const totalPrice = cart.reduce((total, product) => total + product.price, 0);
 
