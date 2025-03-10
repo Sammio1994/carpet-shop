@@ -1,22 +1,20 @@
+import React from 'react';
 import { useParams } from 'react-router-dom';
-import { useState } from 'react';
 
 const products = [
-  { id: 1, name: 'Luxury Wool Carpet', price: 120, img: 'carpet1.jpg', description: 'High-quality wool carpet' },
-  { id: 2, name: 'Modern Grey Carpet', price: 150, img: 'carpet2.jpg', description: 'Stylish grey carpet' },
+  { id: 1, name: 'Luxury Wool Carpet', price: 120, img: 'https://source.unsplash.com/random/300x300?carpet', description: 'High-quality wool carpet' },
+  { id: 2, name: 'Modern Grey Carpet', price: 150, img: 'https://source.unsplash.com/random/300x300?modern-grey-carpet', description: 'Stylish grey carpet' },
+  { id: 3, name: 'Classic Beige Carpet', price: 100, img: 'https://source.unsplash.com/random/300x300?classic-beige-carpet', description: 'Elegant beige carpet' },
   // Add more products here
 ];
 
-const ProductDetailsPage = () => {
+const ProductDetails = () => {
   const { id } = useParams();
   const product = products.find((p) => p.id === parseInt(id));
 
-  // Moving state inside the component
-  const [cart, setCart] = useState([]);
-
-  const addToCart = (product) => {
-    setCart([...cart, product]);
-  };
+  if (!product) {
+    return <div>Product not found</div>;
+  }
 
   return (
     <div>
@@ -24,10 +22,8 @@ const ProductDetailsPage = () => {
       <h1>{product.name}</h1>
       <p>{product.description}</p>
       <p>Price: £{product.price}</p>
-      {/* Button to add product to cart */}
-      <button onClick={() => addToCart(product)}>Add to Cart</button>
     </div>
   );
 };
 
-export default ProductDetailsPage;
+export default ProductDetails;

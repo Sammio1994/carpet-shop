@@ -6,7 +6,7 @@ const ProductPage = () => {
 
   useEffect(() => {
     const fetchProducts = async () => {
-      const response = await axios.get('http://localhost:5000/api/products');
+      const response = await axios.get('https://api.unsplash.com/photos/random?query=carpet&client_id=lsA3B_jAyBXVwPBE_S5_CWmmYyvmEaQdUbsRZ9Dmzwo');
       setProducts(response.data);
     };
     fetchProducts();
@@ -29,4 +29,4 @@ const ProductPage = () => {
   );
 };
 
-export default ProductPage;
+// export default ProductPage;
